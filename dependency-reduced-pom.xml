@@ -31,7 +31,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>hack.HelloWorld</mainClass>
+                  <mainClass>hack.Main</mainClass>
                 </transformer>
               </transformers>
               <filters>

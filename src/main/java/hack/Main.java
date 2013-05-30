@@ -14,11 +14,11 @@ import java.io.IOException;
 /**
  * Date: 5/30/13
  */
-public class HelloWorld extends HttpServlet {
+public class Main extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        resp.getWriter().print("Hello from Java!\n");
+        resp.getWriter().print("pong!\n");
     }
 
     public static void main(String[] args) throws Exception{
@@ -26,7 +26,7 @@ public class HelloWorld extends HttpServlet {
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
         server.setHandler(context);
-        context.addServlet(new ServletHolder(new HelloWorld()),"/hello");
+        context.addServlet(new ServletHolder(new Main()),"/ping");
         context.addServlet(new ServletHolder(new AddShoppingCart()),"/addShoppingCart");
         server.start();
         server.join();
