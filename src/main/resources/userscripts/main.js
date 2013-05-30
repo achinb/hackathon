@@ -43,17 +43,13 @@ $(document).ready(function() {
 
     $('ul.assistant-options li').click(function() {
         var products = getCurrentDomainProducts();
-        var newProducts;
+        var currentProduct = location.href;
 
-        if (products.length == 0) {
-            newProducts = [location.href];
-        } else {
-            products.push(location.href);
-            newProducts = products;
+        if ($.inArray(currentProduct, products) == -1) {
+            products.push(currentProduct);
+            localStorage.setItem(HOST_KEY, JSON.stringify(products));
+            $(window).trigger('bv:updateSelectedProducts', products.length);
         }
-
-        localStorage.setItem(HOST_KEY, JSON.stringify(newProducts));
-        $(window).trigger('bv:updateSelectedProducts', newProducts.length);
     });
 
     /* GENERAL USAGE - THE CODEZZ */
