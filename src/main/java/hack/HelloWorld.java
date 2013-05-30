@@ -26,7 +26,8 @@ public class HelloWorld extends HttpServlet {
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
         server.setHandler(context);
-        context.addServlet(new ServletHolder(new HelloWorld()),"/*");
+        context.addServlet(new ServletHolder(new HelloWorld()),"/hello");
+        context.addServlet(new ServletHolder(new AddShoppingCart()),"/addShoppingCart");
         server.start();
         server.join();
     }
