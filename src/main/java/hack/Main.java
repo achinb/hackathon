@@ -26,8 +26,9 @@ public class Main extends HttpServlet {
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
         server.setHandler(context);
-        context.addServlet(new ServletHolder(new Main()),"/ping");
+        context.addServlet(new ServletHolder(new Main()), "/ping");
         context.addServlet(new ServletHolder(new AddShoppingCart()),"/addShoppingCart");
+        context.addServlet(new ServletHolder(new ViewAppointments()),"/appointments");
         server.start();
         server.join();
     }

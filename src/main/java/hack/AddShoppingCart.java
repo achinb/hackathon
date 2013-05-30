@@ -16,6 +16,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AddShoppingCart extends HttpServlet {
+
+    private static final String URL_KEY = "url";
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -32,7 +35,7 @@ public class AddShoppingCart extends HttpServlet {
 
         findOrCreateShoppingCardItem(aUser, req);
 
-        resp.getWriter().print("Hello from username: " + aUser.getName());
+        resp.getWriter().print("Added " + req.getParameter(URL_KEY) + " for user " +  aUser.getName());
     }
 
     private void findOrCreateShoppingCardItem(User aUser, HttpServletRequest req) {
