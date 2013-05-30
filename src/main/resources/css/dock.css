@@ -68,6 +68,11 @@
     background-color: #707a7a;
     text-align: left;
 }
+
+.total_feedback_window ul li small {
+    float:right;
+}
+
 .tf-rtl ul li,#content .tf-rtl ul li {
     text-align: right;
 }
