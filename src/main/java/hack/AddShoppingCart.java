@@ -23,14 +23,6 @@ public class AddShoppingCart extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        //Find or create user by email address
-        //Once user found/created, find or create item in shopping cart.
-        /*
-            SELECT ID from user where email = 'abc'
-            INSERT into user values ('name', 'email')
-            select ID from shopping_cart where user_id = <idfromabove> and url = 'xyz'
-            insert into shopping_cart values (user_id, url)
-         */
         User aUser = findOrCreateUser(req);
 
         findOrCreateShoppingCardItem(aUser, req);
