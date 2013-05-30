@@ -1,15 +1,20 @@
 package hack;
 
 import hack.db.DBExecutionHelper;
-import hack.form.User;
+import hack.form.ShoppingItem;
 import org.skife.jdbi.v2.Handle;
+import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.HandleCallback;
+import org.skife.jdbi.v2.tweak.ResultSetMapper;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Date: 5/30/13
@@ -21,24 +26,29 @@ public class ViewAppointments extends HttpServlet {
             throws ServletException, IOException {
 
         DBExecutionHelper executionHelper = new DBExecutionHelper();
-//        ShoppingItem aUser = ((User)executionHelper.execute(getAllShoppingItems()));
-//        if(aUser == null) {
-//            Integer retVal = (Integer)executionHelper.execute(putUser(email, userName));
-//            aUser = ((User)executionHelper.execute(getUser(email)));
-//        }
-//        return aUser;
-        resp.getWriter().print("appointmenting!\n");
+        List<ShoppingItem> shoppingItems = ((List<ShoppingItem>)executionHelper.execute(getAllShoppingItems()));
+
+        for(ShoppingItem shoppingItem: shoppingItems) {
+            String displayString = "User Name: %s, User email: %s, Shopping Item: %s";
+            resp.getWriter().println(String.format(displayString, shoppingItem.getUserName(), shoppingItem.getUserEmail(), shoppingItem.getUrl()));
+        }
     }
 
     private HandleCallback getAllShoppingItems() {
-
-        return new HandleCallback<User>() {
+        return new HandleCallback<List<ShoppingItem>>() {
             @Override
-            public User withHandle(Handle handle)
+            public List<ShoppingItem> withHandle(Handle handle)
                     throws Exception {
-                return null;//handle.createQuery("select * from user where email = '" + email + "'").map(new UserMapper()).first();
-
+                return handle.createQuery("select u.name, u.email, sc.url from shopping_cart sc, user u where sc.user_id = u.id").map(new ShoppingItemMapper()).list();
             }
         };
     }
+
+    static class ShoppingItemMapper implements ResultSetMapper<ShoppingItem>
+    {
+        public ShoppingItem map(int rowIndex, ResultSet rs, StatementContext ctxt) throws SQLException {
+            return new ShoppingItem(rs.getString(1), rs.getString(2), rs.getString(3));
+        }
+    }
+
 }

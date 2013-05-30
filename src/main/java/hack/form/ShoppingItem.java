@@ -1,24 +1,16 @@
 package hack.form;
 
 public class ShoppingItem {
-    private int id;
-    private int userId;
     private String url;
+    private String userName;
+    private String userEmail;
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public ShoppingItem(String userName, String userEmail, String url) {
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.url = url;
     }
 
     public String getUrl() {
@@ -27,5 +19,21 @@ public class ShoppingItem {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

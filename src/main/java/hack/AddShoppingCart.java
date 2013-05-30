@@ -54,7 +54,7 @@ public class AddShoppingCart extends HttpServlet {
         DBExecutionHelper executionHelper = new DBExecutionHelper();
         User aUser = ((User)executionHelper.execute(getUser(email)));
         if(aUser == null) {
-            Integer retVal = (Integer)executionHelper.execute(putUser(email, userName));
+            executionHelper.execute(putUser(email, userName));
             aUser = ((User)executionHelper.execute(getUser(email)));
         }
         return aUser;
