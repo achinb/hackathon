@@ -28,15 +28,41 @@ public class AddShoppingCart extends HttpServlet {
             select ID from shopping_cart where user_id = <idfromabove> and url = 'xyz'
             insert into shopping_cart values (user_id, url)
          */
+        User aUser = findOrCreateUser(req);
+
+        findOrCreateShoppingCardItem(aUser, req);
+
+        resp.getWriter().print("Hello from username: " + aUser.getName());
+    }
+
+    private void findOrCreateShoppingCardItem(User aUser, HttpServletRequest req) {
+        String url = req.getParameter("url");
+
+        DBExecutionHelper executionHelper = new DBExecutionHelper();
+        executionHelper.execute(putItem(aUser, url));
+
+    }
+
+    private HandleCallback putItem(final User aUser, final String url) {
+        return new HandleCallback<Integer>() {
+            @Override
+            public Integer withHandle(Handle handle)
+                    throws Exception {
+                return handle.update("insert into shopping_cart (user_id, url) values (" + aUser.getId() + ",'" + url + "')");
+            }
+        };
+    }
+
+    private User findOrCreateUser(HttpServletRequest req) {
         String email = req.getParameter("email").toLowerCase();
         String userName = req.getParameter("userName").toLowerCase();
         DBExecutionHelper executionHelper = new DBExecutionHelper();
         User aUser = ((User)executionHelper.execute(getUser(email)));
         if(aUser == null) {
             Integer retVal = (Integer)executionHelper.execute(putUser(email, userName));
+            aUser = ((User)executionHelper.execute(getUser(email)));
         }
-
-        resp.getWriter().print("Hello from username: " + aUser.getName());
+        return aUser;
     }
 
     private HandleCallback<User> getUser(final String email) {
@@ -44,7 +70,7 @@ public class AddShoppingCart extends HttpServlet {
             @Override
             public User withHandle(Handle handle)
                     throws Exception {
-                return handle.createQuery("select id, name, email from USER where email = '" + email + "'").map(new UserMapper()).first();
+                return handle.createQuery("select id, name, email from user where email = '" + email + "'").map(new UserMapper()).first();
 
             }
         };
@@ -55,7 +81,7 @@ public class AddShoppingCart extends HttpServlet {
             @Override
             public Integer withHandle(Handle handle)
                     throws Exception {
-                return handle.update("insert into USER (name, email) values ('" + name + "','" + email + "')");
+                return handle.update("insert into user (name, email) values ('" + name + "','" + email + "')");
             }
         };
     }
