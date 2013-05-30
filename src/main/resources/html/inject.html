@@ -1,22 +1,22 @@
 <div class="dock">
     <div class="total_feedback_window" style="display: block;">
+
+        <script>
+            function addProduct() {
+                window.localStorage.setItem("items",);
+            }
+        </script>
+
         <span class="total-minimize" title="Minimize">-</span>
         <form method="post" action="http://www.totalfeedback.net/demo/wp-content/plugins/total-feedback/respond.php" autocomplete="off">
             <input type="hidden" name="poll_id" value="1">
-            <span class="title">How do you tell what your visitors think about your site?</span>
+
+            <div class="title">Shopping Assistant</div>
             <ul>
-                <li><input type="radio" name="answer[1][value]" value="1"> I wish I could tell why more people don't sign up or buy from me						</li>
-                <li><input type="radio" name="answer[2][value]" value="2"> I'm paying monthly for surveys &amp; user-testing services						</li>
-                <li><input type="radio" name="answer[3][value]" value="3"> I'm using Total Feedback!						</li>
-                <li><input type="radio" name="answer[4][value]" value="4"> I only know how many visits I have						</li>
-                <li><input type="radio" name="answer[5][value]" value="5"> Other (please specify):							<div class="explanation">
-                    <textarea cols="40" rows="2" name="answer[5][content]"></textarea>
-                </div>
-                </li>
+                <li onclick="addProduct()">View in-store</li>
+                <li>I'm not interested in this item</li>
             </ul>
-            <a class="total-feedback-window-button">Send</a>
-            <img class="loader" src="http://www.totalfeedback.net/demo/wp-content/plugins/total-feedback/assets/images/loader.gif" alt="">
+            <a class="total-feedback-window-button" disabled="disabled">Schedule Appointment</a>
         </form>
-        <div class="tf-post-text"></div>
     </div>
 </div>

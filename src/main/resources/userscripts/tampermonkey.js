@@ -8,5 +8,6 @@
 // @match      https://*/*
 // @require    http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js
 // @require    file:///Users/cyrus/src/hackathon/src/main/resources/userscripts/main.js
-// @resource   dock.css file:///Users/cyrus/src/hackathon/src/main/resources/css/dock.css
+// @resource   stylesheet file:///Users/cyrus/src/hackathon/src/main/resources/css/dock.css
+// @resource   html file:///Users/cyrus/src/hackathon/src/main/resources/html/inject.html
 // ==/UserScript==

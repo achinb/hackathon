@@ -20,9 +20,9 @@ $(document).ready(function() {
 
     if(!shouldInitialize) return;
 
-    var cssTxt = GM_getResourceText('dock.css');
+    var cssTxt = GM_getResourceText('stylesheet');
     GM_addStyle(cssTxt);
 
-    var injectableHtml = '<div class="dock">Hello World!</div>';
+    var injectableHtml = GM_getResourceText('html');
     $('body').prepend(injectableHtml);
 });
