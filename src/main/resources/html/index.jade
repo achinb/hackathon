@@ -1,0 +1,10 @@
+!!! 5
+html
+  head
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    title= pageName
+  body
+    ol#shoppingItems
+      for shoppingItem in shoppingItems
+          li User #{shoppingItem.userName} bookmarked #{shoppingItem.url} to view in store.
