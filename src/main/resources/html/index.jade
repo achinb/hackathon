@@ -3,12 +3,40 @@ html
   head
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
-    <link href="/viewShoppingCart.css" rel="stylesheet">
+    style
+        h1 {
+            color:white;
+        }
+        body {
+            margin: 65px;
+            background-color: #366672;
+            color: white;
+
+            height: 100%;
+            padding-bottom: 10px;
+            background-color: #366672; /* fallback color if gradients are not supported */
+            background-image: -webkit-linear-gradient(top, #366672, #003d4c);
+            background-image: -moz-linear-gradient(top, #366672, #003d4c); /* For Fx 3.6 to Fx 15 */
+            background-image: -ms-linear-gradient(top, #366672, #003d4c); /* For IE 10 Platform Previews and Consumer Preview */
+            background-image: -o-linear-gradient(top, #366672, #003d4c); /* For Opera 11.1 to 12.0 */
+            background-image: linear-gradient(top, #366672, #003d4c); /* Standard syntax; must be the last statement */
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        a {
+            color: pink;
+        }
+        div {
+            border: 1px solid white;
+            padding: 25px;
+        }
+
     title= pageName
   body
     h1 BV In Store Shopping Assistant.
 
-    ul#shoppingItems
-      for shoppingItem in shoppingItems
-          li User #{shoppingItem.userName} bookmarked an item on #{shoppingItem.getDomain()} to view in store for [<a href="#{shoppingItem.url}">link</a>].
+    div
+        ul#shoppingItems
+            for shoppingItem in shoppingItems
+                li User #{shoppingItem.userName} bookmarked an item on #{shoppingItem.getDomain()} to view in store for [<a href="#{shoppingItem.url}">link</a>].
 

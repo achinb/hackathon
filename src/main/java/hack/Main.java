@@ -1,8 +1,6 @@
 package hack;
 
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
@@ -27,18 +25,13 @@ public class Main extends HttpServlet {
         Server server = new Server(5000);
 
 
-        HandlerList handlerList = new HandlerList();
-        ResourceHandler resourceHandler = new ResourceHandler();
-        handlerList.addHandler(resourceHandler);
-
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
         context.addServlet(new ServletHolder(new Main()), "/ping");
         context.addServlet(new ServletHolder(new AddShoppingCart()),"/addShoppingCart");
         context.addServlet(new ServletHolder(new ViewAppointments()),"/appointments");
-        handlerList.addHandler(context);
 
-        server.setHandler(handlerList);
+        server.setHandler(context);
         server.start();
         server.join();
     }
