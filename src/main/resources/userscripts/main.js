@@ -1,3 +1,22 @@
+function notify(emailAddress) {
+    var havePermission = window.webkitNotifications.checkPermission();
+    if (havePermission == 0) {
+        // 0 is PERMISSION_ALLOWED
+        var notification = window.webkitNotifications.createNotification(
+                'http://summit.bazaarvoice.com/wp-content/themes/summit/library/images/bazaarvoice-logo-green.png',
+                'Shopping Assistant',
+                'Thanks! We\'ll email you a reminder for your appointment to: ' + emailAddress
+        );
+
+        notification.onclick = function () {
+            notification.close();
+        }
+        notification.show();
+    } else {
+        window.webkitNotifications.requestPermission();
+    }
+}
+
 $(document).ready(function () {
 
     var HOST_KEY = '__$BV_ASSISTANT';
@@ -68,19 +87,28 @@ $(document).ready(function () {
     $("#schedule-btn").click(function (evt) {
         evt.preventDefault();
 
-        var data = {userName: $('#name').val(), email: $('#email').val()};
-        $(getCurrentDomainProducts()).each(function(index, product) {
-            data["url"] = product;
-            $.post('http://localhost:5000/addShoppingCart', data, function () {
-                var updatedProducts = $.grep(getCurrentDomainProducts(), function(value) {
-                    return value != product;
+        var data = {userName: $('#name').val(), email: $('#email').val(), urls: getCurrentDomainProducts()};
+        /*$.post('http://localhost:5000/addShoppingCart', data, function () {
+            localStorage.setItem(HOST_KEY, []);
+            $(window).trigger('bv:updateSelectedProducts', getCurrentDomainProducts().length);
+        });*/
+
+        $.ajax({
+            url: 'http://localhost:5000/addShoppingCart',
+            type: "POST",
+            data: data,
+            success: function () {
+                localStorage.setItem(HOST_KEY, "[]");
+                $(window).trigger('bv:updateSelectedProducts', getCurrentDomainProducts().length);
+
+                $('div#main').show();
+                $('div#schedule').hide();
+                $('div#main').slideToggle(900, function() {
+                    notify($('#email').val());
                 });
-                localStorage.setItem(HOST_KEY, JSON.stringify(updatedProducts));
-                $(window).trigger('bv:updateSelectedProducts', updatedProducts.length);
-            });
+            },
+            crossDomain: true
         });
-        $('div#main').show();
-        $('div#schedule').hide();
     });
 
     /* GENERAL USAGE - THE CODEZZ */

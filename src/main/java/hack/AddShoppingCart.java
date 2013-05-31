@@ -2,6 +2,7 @@ package hack;
 
 import hack.db.DBExecutionHelper;
 import hack.form.User;
+import org.eclipse.jetty.http.HttpStatus;
 import org.skife.jdbi.v2.Handle;
 import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.HandleCallback;
@@ -17,17 +18,21 @@ import java.sql.SQLException;
 
 public class AddShoppingCart extends HttpServlet {
 
-    private static final String URL_KEY = "url";
+    public static final String URL_KEY = "urls";
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        resp.addHeader("Access-Control-Allow-Origin", "*");
+        resp.addHeader("Access-Control-Allow-Credentials", "true ");
+        resp.addHeader("Access-Control-Allow-Methods", "OPTIONS, POST");
+        resp.addHeader("Access-Control-Allow-Headers", "Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control");
 
         User aUser = findOrCreateUser(req);
 
         findOrCreateShoppingCardItem(aUser, req);
 
-        resp.getWriter().print("Added " + req.getParameter(URL_KEY) + " for user " +  aUser.getName());
+        resp.setStatus(HttpStatus.OK_200);
     }
 
     private void findOrCreateShoppingCardItem(User aUser, HttpServletRequest req) {
@@ -36,8 +41,6 @@ public class AddShoppingCart extends HttpServlet {
         for (String url : req.getParameterValues("urls[]")) {
             executionHelper.execute(putItem(aUser, url));
         }
-
-
     }
 
     private HandleCallback putItem(final User aUser, final String url) {
@@ -54,10 +57,10 @@ public class AddShoppingCart extends HttpServlet {
         String email = req.getParameter("email").toLowerCase();
         String userName = req.getParameter("userName").toLowerCase();
         DBExecutionHelper executionHelper = new DBExecutionHelper();
-        User aUser = ((User)executionHelper.execute(getUser(email)));
-        if(aUser == null) {
+        User aUser = ((User) executionHelper.execute(getUser(email)));
+        if (aUser == null) {
             executionHelper.execute(putUser(email, userName));
-            aUser = ((User)executionHelper.execute(getUser(email)));
+            aUser = ((User) executionHelper.execute(getUser(email)));
         }
         return aUser;
     }
@@ -83,8 +86,7 @@ public class AddShoppingCart extends HttpServlet {
         };
     }
 
-    static class UserMapper implements ResultSetMapper<User>
-    {
+    static class UserMapper implements ResultSetMapper<User> {
         public User map(int rowIndex, ResultSet rs, StatementContext ctxt) throws SQLException {
             return new User(rs.getInt(1), rs.getString(2), rs.getString(3));
         }
