@@ -41,7 +41,7 @@ $(document).ready(function() {
         }
     }
 
-    $('ul.assistant-options li').click(function() {
+    $('ul.assistant-options li.view').click(function() {
         var products = getCurrentDomainProducts();
         var currentProduct = location.href;
 
@@ -52,6 +52,20 @@ $(document).ready(function() {
         }
     });
 
+    $('ul.assistant-options li.cancel').click(function() {
+        $('div#main').slideToggle();
+    });
+
+    $('.total_feedback_window .total-minimize').on('click', function() {
+        $('div#main').slideToggle();
+    });
+
+    $('a.schedule').on('click', function() {
+        $('div#main').hide();
+        $('div#schedule').show();
+    });
+
     /* GENERAL USAGE - THE CODEZZ */
     $(window).trigger('bv:updateSelectedProducts', getCurrentDomainProducts().length);
+    $('div#main').delay(1500).slideToggle();
 });
