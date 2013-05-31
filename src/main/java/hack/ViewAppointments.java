@@ -32,7 +32,7 @@ public class ViewAppointments extends HttpServlet {
         List<ShoppingItem> shoppingItems = ((List<ShoppingItem>)executionHelper.execute(getAllShoppingItems()));
 
         Map<String, Object> model = new HashMap<String, Object>();
-        model.put("pageName", "Shit's gotta work!");
+        model.put("pageName", "Appointments Scheduled");
         model.put("shoppingItems", shoppingItems);
         String html =  Jade4J.render("./src/main/resources/html/index.jade", model);
         resp.getWriter().print(html);
