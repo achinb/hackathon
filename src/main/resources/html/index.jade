@@ -7,4 +7,4 @@ html
   body
     ol#shoppingItems
       for shoppingItem in shoppingItems
-          li User #{shoppingItem.userName} bookmarked #{shoppingItem.url} to view in store.
+          li User #{shoppingItem.userName} bookmarked #{shoppingItem.url} to view in store for #{shoppingItem.getDomain()}.
