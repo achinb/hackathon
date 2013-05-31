@@ -1,5 +1,6 @@
 package hack;
 
+import de.neuland.jade4j.Jade4J;
 import hack.db.DBExecutionHelper;
 import hack.form.ShoppingItem;
 import org.skife.jdbi.v2.Handle;
@@ -14,7 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Date: 5/30/13
@@ -28,10 +31,11 @@ public class ViewAppointments extends HttpServlet {
         DBExecutionHelper executionHelper = new DBExecutionHelper();
         List<ShoppingItem> shoppingItems = ((List<ShoppingItem>)executionHelper.execute(getAllShoppingItems()));
 
-        for(ShoppingItem shoppingItem: shoppingItems) {
-            String displayString = "User Name: %s, User email: %s, Shopping Item: %s";
-            resp.getWriter().println(String.format(displayString, shoppingItem.getUserName(), shoppingItem.getUserEmail(), shoppingItem.getUrl()));
-        }
+        Map<String, Object> model = new HashMap<String, Object>();
+        model.put("pageName", "Shit's gotta work!");
+        model.put("shoppingItems", shoppingItems);
+        String html =  Jade4J.render("./src/main/resources/html/index.jade", model);
+        resp.getWriter().print(html);
     }
 
     private HandleCallback getAllShoppingItems() {
