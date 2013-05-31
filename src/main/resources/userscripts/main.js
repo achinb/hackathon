@@ -65,15 +65,22 @@ $(document).ready(function () {
         $('div#schedule').show();
     });
 
-    $("#schedule-btn").click(function () {
-        var data = {name: $('#name').val(), email: $('#email').val()};
+    $("#schedule-btn").click(function (evt) {
+        evt.preventDefault();
 
+        var data = {userName: $('#name').val(), email: $('#email').val()};
         $(getCurrentDomainProducts()).each(function(index, product) {
             data["url"] = product;
-            $.post('http://WHATEVER.ec2.aws.amazon.com', data, function () {
-                alert("COMPLETE");
+            $.post('http://localhost:5000/addShoppingCart', data, function () {
+                var updatedProducts = $.grep(getCurrentDomainProducts(), function(value) {
+                    return value != product;
+                });
+                localStorage.setItem(HOST_KEY, JSON.stringify(updatedProducts));
+                $(window).trigger('bv:updateSelectedProducts', updatedProducts.length);
             });
         });
+        $('div#main').show();
+        $('div#schedule').hide();
     });
 
     /* GENERAL USAGE - THE CODEZZ */
