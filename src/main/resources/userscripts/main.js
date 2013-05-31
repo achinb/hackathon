@@ -66,10 +66,13 @@ $(document).ready(function () {
     });
 
     $("#schedule-btn").click(function () {
-        var data = {name: $('#name').val(), products: getCurrentDomainProducts()};
+        var data = {name: $('#name').val(), email: $('#email').val()};
 
-        $.post('http://WHATEVER.ec2.aws.amazon.com', data, function () {
-            alert("COMPLETE");
+        $(getCurrentDomainProducts()).each(function(index, product) {
+            data["url"] = product;
+            $.post('http://WHATEVER.ec2.aws.amazon.com', data, function () {
+                alert("COMPLETE");
+            });
         });
     });
 
