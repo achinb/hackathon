@@ -1,29 +1,16 @@
 package hack.db;
 
 import org.skife.jdbi.v2.DBI;
-import org.skife.jdbi.v2.Handle;
 import org.skife.jdbi.v2.tweak.ConnectionFactory;
+import org.skife.jdbi.v2.tweak.HandleCallback;
 
 import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBConfiguration {
-
-    static final String dbUrl = "jdbc:mysql://localhost/hack";
-    static final String dbClass = "com.mysql.jdbc.Driver";
-    static final String username = "dev";
-    static final String password = "dev";
-
-
-    public static void main(String args[]) {
-        new DBConfiguration().getDbConfiguration();
-    }
-
-    public void getDbConfiguration() {
-        DBI dbi = null;
-
+public class DBExecutionHelper implements  DBConstants {
+    public Object execute(HandleCallback handleCallback) {
         ConnectionFactory cf = new ConnectionFactory() {
             @Override
             public Connection openConnection()
@@ -38,10 +25,7 @@ public class DBConfiguration {
                 return null;
             }
         };
-        dbi = new DBI(cf);
-        Handle handle = dbi.open();
-        handle.execute("create table temp (id int primary key, name varchar(100))");
-        handle.close();
+        return new DBI(cf).withHandle(handleCallback);
     }
 
     private static Connection getConnection()
