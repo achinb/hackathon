@@ -31,10 +31,12 @@ public class AddShoppingCart extends HttpServlet {
     }
 
     private void findOrCreateShoppingCardItem(User aUser, HttpServletRequest req) {
-        String url = req.getParameter("url");
 
         DBExecutionHelper executionHelper = new DBExecutionHelper();
-        executionHelper.execute(putItem(aUser, url));
+        for (String url : req.getParameterValues("urls[]")) {
+            executionHelper.execute(putItem(aUser, url));
+        }
+
 
     }
 
