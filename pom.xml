@@ -8,6 +8,13 @@
     <artifactId>helloworld</artifactId>
     <dependencies>
         <dependency>
+            <groupId>de.neuland</groupId>
+            <artifactId>jade4j</artifactId>
+            <version>0.3.11</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/jade4j-0.3.11.jar</systemPath>
+        </dependency>
+        <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-servlet</artifactId>
             <version>8.1.5.v20120716</version>
