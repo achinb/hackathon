@@ -33,10 +33,11 @@ html
 
     title= pageName
   body
-    h1 BV In Store Shopping Assistant.
+    h1 BV:Offline
 
     div
+        h2 Appointments
         ul#shoppingItems
             for shoppingItem in shoppingItems
-                li User #{shoppingItem.userName} bookmarked an item on #{shoppingItem.getDomain()} to view in store for [<a href="#{shoppingItem.url}">link</a>].
+                li <b>#{shoppingItem.userName}</b> bookmarked an item on #{shoppingItem.getDomain()} to view in store for [<a href="#{shoppingItem.url}">link</a>].
 
