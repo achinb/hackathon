@@ -5,7 +5,9 @@
     right: 0;
     z-index: 3000;
 }
-
+.hidden {
+    display: none;
+}
 .total_feedback_window {
     position:fixed;
     text-shadow:1px 1px 1px #444;
@@ -36,7 +38,6 @@
     border-radius:6px 6px 6px 6px;
 }
 .total_feedback_window .title {
-    background:url(../images/icons.png) 0 5px no-repeat;
     line-height: 18px;
     color:#fff;
     font-size:13px;
@@ -57,6 +58,7 @@
     margin:0;
     width:auto;
     height:auto;
+    cursor: pointer;
 }
 
 .total_feedback_window ul li,#content .total_feedback_window ul li {
@@ -68,6 +70,13 @@
     background-color: #707a7a;
     text-align: left;
 }
+
+.total_feedback_window ul li small {
+    float:right;
+    font-weight: bolder;
+    font-size: 14px;
+}
+
 .tf-rtl ul li,#content .tf-rtl ul li {
     text-align: right;
 }
@@ -113,9 +122,6 @@
 .tf-rtl .loader {
     float:left;
 }
-.total_feedback_window form {
-    display:block;
-}
 .total_feedback_window.inline form {
     padding-bottom:48px;
 }
@@ -155,8 +161,10 @@
     cursor:pointer;
     text-align: center;
 }
-
 .total_feedback_window.inline .total-minimize {
+    display:none;
+}
+.total_feedback_window #main.hidden {
     display:none;
 }
 .total-feedback-exit-detector {
