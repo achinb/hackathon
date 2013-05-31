@@ -3,8 +3,12 @@ html
   head
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link href="/viewShoppingCart.css" rel="stylesheet">
     title= pageName
   body
-    ol#shoppingItems
+    h1 BV In Store Shopping Assistant.
+
+    ul#shoppingItems
       for shoppingItem in shoppingItems
-          li User #{shoppingItem.userName} bookmarked #{shoppingItem.url} to view in store for #{shoppingItem.getDomain()}.
+          li User #{shoppingItem.userName} bookmarked an item on #{shoppingItem.getDomain()} to view in store for [<a href="#{shoppingItem.url}">link</a>].
+
